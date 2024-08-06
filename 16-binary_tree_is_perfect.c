@@ -7,14 +7,14 @@
  * @node: Pointer to the node to measure the depth
  * Return: Depth of the node. If node is NULL, return 0.
  */
-static int binary_tree_de(const binary_tree_t *node)
+int binary_tree_de(const binary_tree_t *node)
 {
 	int depth = 0;
 
-	while (node && node->parent)
+	while (node)
 	{
 		depth++;
-		node = node->parent;
+		node = node->left;
 	}
 
 	return (depth);
@@ -27,7 +27,7 @@ static int binary_tree_de(const binary_tree_t *node)
  * @level: Current level of the node
  * Return: 1 if the tree is perfect, 0 otherwise
  */
-static int binary_tree_recur(const binary_tree_t *tree, int depth, int level)
+int binary_tree_recur(const binary_tree_t *tree, int depth, int level)
 {
 
 	if (tree == NULL)
@@ -50,12 +50,10 @@ static int binary_tree_recur(const binary_tree_t *tree, int depth, int level)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int depth;
+	int depth = binary_tree_de(tree);
 
 	if (tree == NULL)
 		return (0);
-
-	depth = binary_tree_de(tree);
 
 	return (binary_tree_recur(tree, depth, 0));
 }
